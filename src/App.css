@@ -1,0 +1,226 @@
+/* Reseteo básico para asegurar que se vea igual en todos los navegadores */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Fondo de toda la pantalla */
+.contenedor-principal {
+  min-height: 100vh;
+  background-color: #f4f6f8; /* Gris muy claro/azulado de fondo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* =========================================
+   ENCABEZADO (Logo y Título)
+========================================= */
+.encabezado-marca {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.logo {
+  width: 20px; 
+  height: 20px;
+  margin-right: 8px;
+}
+
+.titulo-marca {
+  font-size: 20px;
+  color: #004b7c; /* Azul oscuro */
+  font-weight: 600;
+}
+
+/* =========================================
+   TARJETA BLANCA PRINCIPAL
+========================================= */
+.tarjeta-login {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 28px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra muy suave */
+  border: 1px solid #e2e8f0;
+}
+
+.titulo-bienvenida {
+  text-align: center;
+  font-size: 22px;
+  color: #1a202c;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.subtitulo {
+  text-align: center;
+  font-size: 14px;
+  color: #4a5568;
+  margin-bottom: 28px;
+}
+
+/* =========================================
+   FORMULARIO E INPUTS
+========================================= */
+.grupo-input {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #4a5568;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  background-color: #f7fafc; /* Fondo gris claro dentro del input */
+  border: 1px solid #cbd5e0; /* Borde gris */
+  border-radius: 4px;
+  font-size: 15px;
+  color: #2d3748;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+input:focus {
+  border-color: #0073e6; /* Borde azul al hacer clic */
+}
+
+input::placeholder {
+  color: #a0aec0;
+}
+
+/* =========================================
+   CONTRASEÑA (Link e Ícono)
+========================================= */
+.cabecera-password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cabecera-password label {
+  margin-bottom: 0; /* Quitamos el margen porque la caja padre ya lo gestiona */
+}
+
+.link-olvido {
+  font-size: 12px;
+  color: #0073e6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-olvido:hover {
+  text-decoration: underline;
+}
+
+.contenedor-password {
+  position: relative; /* Para poder colocar el ojito dentro de esta caja */
+  display: flex;
+  align-items: center;
+}
+
+.contenedor-password input {
+  padding-right: 40px; /* Dejamos espacio a la derecha para que el texto no pise el ojito */
+}
+
+.boton-ojito {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #718096;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================
+   BOTÓN PRINCIPAL
+========================================= */
+.boton-enviar {
+  width: 100%;
+  background-color: #0073e6; /* Azul principal */
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Espacio entre el texto y la flecha */
+  margin-top: 12px;
+  transition: background-color 0.2s;
+}
+
+.boton-enviar:hover {
+  background-color: #005bb5;
+}
+
+/* =========================================
+   FOOTER DE LA TARJETA (Seguridad)
+========================================= */
+.linea-divisora {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 28px 0 20px 0;
+}
+
+.info-seguridad {
+  text-align: center;
+}
+
+.texto-sistema-seguro {
+  font-size: 11px;
+  font-weight: 700;
+  color: #4a5568;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.texto-firebase {
+  font-size: 11px;
+  color: #a0aec0;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   ENLACE DE REGISTRO (Fuera de la tarjeta)
+========================================= */
+.enlace-registro {
+  margin-top: 24px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.enlace-registro a {
+  color: #004b7c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.enlace-registro a:hover {
+  text-decoration: underline;
+}

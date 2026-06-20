@@ -1,0 +1,238 @@
+/* =========================================
+   LAYOUT Y NAVBAR (MÓDULO REGISTRO)
+========================================= */
+.registro-layout {
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  display: flex;
+  flex-direction: column;
+}
+
+.registro-navbar {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 32px;
+}
+
+.registro-navbar-contenido {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.registro-logo {
+  width: 24px; 
+  height: 24px;
+  margin-right: 10px;
+  color: #0066cc;
+}
+
+.registro-titulo-marca {
+  font-size: 20px;
+  color: #004b7c;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* =========================================
+   CONTENEDOR Y TARJETA
+========================================= */
+.registro-contenedor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.registro-tarjeta {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 28px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.registro-bienvenida {
+  text-align: center;
+  font-size: 24px;
+  color: #1a202c;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.registro-subtitulo {
+  text-align: center;
+  font-size: 14px;
+  color: #4a5568;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   FORMULARIO E INPUTS
+========================================= */
+.registro-grupo-input {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.registro-grupo-input label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.registro-grupo-input input {
+  width: 100%;
+  padding: 12px 14px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #2d3748;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.registro-grupo-input input:focus {
+  border-color: #0073cc;
+}
+
+.registro-grupo-input input::placeholder {
+  color: #94a3b8;
+}
+
+/* =========================================
+   CONTRASEÑA
+========================================= */
+.registro-contenedor-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.registro-contenedor-password input {
+  padding-right: 40px;
+}
+
+.registro-boton-ojito {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================
+   BANNER FIREBASE
+========================================= */
+.registro-banner-firebase {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #4a5568;
+}
+
+.registro-banner-firebase span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   BOTÓN ENVIAR
+========================================= */
+.registro-boton-enviar {
+  width: 100%;
+  background-color: #0073cc;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.registro-boton-enviar:hover {
+  background-color: #005bb5;
+}
+
+/* =========================================
+   ENLACE LOGIN INTERNO
+========================================= */
+.registro-enlace-login {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.registro-enlace-login a {
+  color: #0073cc;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.registro-enlace-login a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   FOOTER DE LA PÁGINA
+========================================= */
+.registro-footer {
+  width: 100%;
+  border-top: 1px solid #e2e8f0;
+  padding: 24px 20px;
+  text-align: center;
+  background-color: #f7f9fc;
+}
+
+.registro-footer p {
+  font-size: 14px;
+  color: #4a5568;
+  margin: 0 0 12px 0;
+}
+
+.registro-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.registro-footer-links a {
+  font-size: 14px;
+  color: #4a5568;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.registro-footer-links a:hover {
+  color: #1a202c;
+}
