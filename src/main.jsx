@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Registro from './Registro.jsx' // Tu nuevo archivo de Registro
 import Dashboard from './Dashboard.jsx'
+import Conexion from './Conexion.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,6 +17,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/registro" element={<Registro />} />
         {/* Creamos la ruta para el dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />
+        {/* Creamos la ruta para la página de conexión */}
+        <Route path="/conexion" element={<Conexion />} />
       </Routes>
     </Router>
   </StrictMode>,

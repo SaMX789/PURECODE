@@ -1,0 +1,334 @@
+/* =========================================
+   LAYOUT GLOBAL
+========================================= */
+.conexion-layout {
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 70px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* =========================================
+   CABECERA
+========================================= */
+.conexion-header {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.conexion-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.conexion-logo-group .logo-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.conexion-logo-group h2 {
+  font-size: 20px;
+  color: #004b7c;
+  font-weight: 700;
+  margin: 0;
+}
+
+.user-avatar {
+  background-color: #0f172a; /* Avatar negro/oscuro como en el diseño */
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+.conexion-content {
+  padding: 24px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.titulo-seccion {
+  font-size: 24px;
+  color: #0f172a;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+}
+
+/* =========================================
+   TARJETA 1: ESTADO PRINCIPAL
+========================================= */
+.card-estado-principal {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.anillos-concentricos {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.anillos-concentricos::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid #f8fafc;
+  z-index: 0;
+}
+
+.caja-estado {
+  width: 80px;
+  height: 80px;
+  background-color: #ecfdf5; /* Fondo verde muy claro */
+  border: 2px solid #d1fae5;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+.punto-verde-pulso {
+  width: 14px;
+  height: 14px;
+  background-color: #10b981; /* Verde esmeralda */
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulso-conexion 2s infinite;
+}
+
+@keyframes pulso-conexion {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.texto-activo {
+  font-size: 11px;
+  font-weight: 700;
+  color: #047857;
+}
+
+.info-estado {
+  text-align: center;
+}
+
+.info-estado h3 {
+  font-size: 20px;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.info-estado p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* =========================================
+   TARJETAS SECUNDARIAS GLOBALES
+========================================= */
+.tarjeta-datos {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.tarjeta-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.etiqueta-gris {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.icono-pequeno {
+  width: 16px;
+  height: 16px;
+}
+
+/* =========================================
+   TARJETA 2: LATIDO DE RED
+========================================= */
+.latido-texto {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.tiempo-destaque {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0073cc;
+}
+
+.tiempo-sufijo {
+  font-size: 16px;
+  color: #64748b;
+}
+
+.subtexto-gris {
+  font-size: 13px;
+  color: #475569;
+  margin: 0 0 16px 0;
+}
+
+.grafico-barras {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 40px;
+  background-color: #f8fafc;
+  padding: 8px;
+  border-radius: 4px;
+  gap: 4px;
+}
+
+.barra {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+}
+
+.barra-baja { height: 40%; background-color: #8bb4d1; }
+.barra-media { height: 60%; background-color: #8bb4d1; }
+.barra-alta { height: 100%; background-color: #005bb5; }
+.barra-maxima { height: 120%; background-color: #005bb5; margin-top: -8px; } /* Simula un pico fuera de la caja */
+
+/* =========================================
+   TARJETA 3: CALIDAD DE SEÑAL
+========================================= */
+.tarjeta-senal {
+  background-color: #005bb5;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  box-shadow: 0 4px 6px rgba(0, 91, 181, 0.2);
+}
+
+.etiqueta-blanca-transparente {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.senal-info h3 {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+  font-weight: 700;
+}
+
+.senal-icono {
+  width: 40px;
+  height: 30px;
+}
+
+.senal-icono svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+/* =========================================
+   TARJETA 4: DETALLES DE TRANSMISIÓN
+========================================= */
+.tarjeta-detalles {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 16px;
+  overflow: hidden; /* Mantiene los bordes redondeados limpios */
+}
+
+.detalles-cabecera {
+  background-color: #f1f5f9;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detalles-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 4px;
+}
+
+.detalle-item.sin-borde {
+  border-bottom: none;
+}
+
+.detalle-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.detalle-valor {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.enlace-azul {
+  color: #0073cc;
+}
+
+/* La Barra de Navegación Inferior comparte estilos con el Dashboard (asegúrate de no duplicarlos si los tienes globales) */
