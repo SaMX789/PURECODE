@@ -109,7 +109,7 @@ function Dashboard() {
             <div className="card-body">
               <div className="main-metric">
                 {/* Muestra el pH en vivo con dos decimales */}
-                <span className="value">{ph.toFixed(2)}</span>
+                <span className="value">{ph.toFixed(2)}</span> {/* La variable "ph" contiene el valor actual del pH */}
                 <span className="unit">pH</span>
               </div>
               <div className="sub-metric">
@@ -153,7 +153,7 @@ function Dashboard() {
             <div className="card-body">
               <div className="main-metric">
                 {/* Muestra el valor entero real del TDS */}
-                <span className="value">{tds}</span>
+                <span className="value">{tds}</span> {/* la variable "tds" contiene el valor actual del TDS */}
                 <span className="unit">ppm</span>
               </div>
               <div className="sub-metric">
