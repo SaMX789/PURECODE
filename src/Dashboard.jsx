@@ -77,7 +77,7 @@ function Dashboard() {
             
             <div className="card-body">
               <div className="main-metric">
-                <span className="value">7.8</span>
+                <span className="value">0</span>
                 <span className="unit">pH</span>
               </div>
               <div className="sub-metric">
@@ -119,7 +119,7 @@ function Dashboard() {
             
             <div className="card-body">
               <div className="main-metric">
-                <span className="value">5</span>
+                <span className="value">0</span>
                 <span className="unit">NTU</span>
               </div>
               <div className="sub-metric">
