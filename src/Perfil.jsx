@@ -1,27 +1,122 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth'; 
 import './Perfil.css';
+import { 
+  auth,
+  actualizarNombreUsuario, 
+  reautenticarUsuario, 
+  actualizarContrasenia, 
+  eliminarCuenta, 
+  cerrarSesionUsuario,
+  obtenerDatosUsuario // Asegúrate de haber agregado esta función en tu Registrar.js como te mostré antes
+} from './Registrar.js';
 
 function Perfil() {
   const navigate = useNavigate();
-  const [nombre, setNombre] = useState('Magdiel');
-  const [passwordActual, setPasswordActual] = useState('');
+  const location = useLocation(); 
+  const correoRecibido = location.state?.correoUsuario || ''; 
 
-  const manejarGuardarPerfil = (e) => {
+  // Estados
+  const [nombre, setNombre] = useState(''); 
+  const [emailReal, setEmailReal] = useState(correoRecibido);
+  const [passwordActual, setPasswordActual] = useState('');
+  const [nuevaPassword, setNuevaPassword] = useState('');
+  const [confirmarPassword, setConfirmarPassword] = useState('');
+  const [identidadVerificada, setIdentidadVerificada] = useState(false);
+
+  // Sincronizar con los datos reales usando el observador y Firestore
+  useEffect(() => {
+    // Agregamos "async" porque ahora esperaremos la respuesta de la base de datos
+    const cancelarObservador = onAuthStateChanged(auth, async (usuarioActual) => {
+      if (usuarioActual) {
+        setEmailReal(usuarioActual.email);
+        
+        // Vamos a Firestore a buscar el nombre real usando el ID del usuario
+        const resultado = await obtenerDatosUsuario(usuarioActual.uid);
+        
+        if (resultado.exito && resultado.datos && resultado.datos.nombre) {
+          // Si lo encuentra en la base de datos (Ej: Juan Antonio Bautista Lopez), usa ese nombre
+          setNombre(resultado.datos.nombre);
+        } else {
+          // Si por alguna razón falla, usa el de Auth como respaldo
+          setNombre(usuarioActual.displayName || '');
+        }
+      }
+    });
+
+    // Limpieza de memoria al salir de la pantalla
+    return () => cancelarObservador();
+  }, []);
+
+  // --- HANDLERS ---
+
+  const manejarGuardarPerfil = async (e) => {
     e.preventDefault();
-    console.log('Perfil actualizado:', nombre);
+    if (!auth.currentUser) return;
+    
+    const resultado = await actualizarNombreUsuario(nombre);
+    if (resultado.exito) {
+      alert('Perfil actualizado correctamente');
+    } else {
+      alert('Error al actualizar el perfil');
+    }
   };
 
-  const manejarCerrarSesion = () => {
-    // Aquí iría la lógica de Firebase para cerrar sesión
-    console.log('Cerrando sesión...');
-    navigate('/');
+  const verificarIdentidad = async () => {
+    if (!passwordActual) return alert('Por favor, ingresa tu contraseña actual.');
+    
+    const resultado = await reautenticarUsuario(emailReal, passwordActual);
+    if (resultado.exito) {
+      setIdentidadVerificada(true);
+      alert('Identidad verificada. Ya puedes ingresar tu nueva contraseña.');
+    } else {
+      alert('Contraseña incorrecta. Inténtalo de nuevo.');
+    }
+  };
+
+  const manejarActualizarPassword = async () => {
+    if (nuevaPassword !== confirmarPassword) return alert('Las contraseñas nuevas no coinciden.');
+    if (nuevaPassword.length < 6) return alert('La nueva contraseña debe tener al menos 6 caracteres.');
+
+    const resultado = await actualizarContrasenia(nuevaPassword);
+    if (resultado.exito) {
+      alert('¡Contraseña actualizada con éxito!');
+      setPasswordActual('');
+      setNuevaPassword('');
+      setConfirmarPassword('');
+      setIdentidadVerificada(false);
+    } else {
+      alert('Hubo un error al actualizar la contraseña.');
+    }
+  };
+
+  const manejarEliminarCuenta = async () => {
+    const confirmar = window.confirm("¿Estás completamente seguro? Esta acción eliminará tu cuenta de forma permanente.");
+    
+    if (confirmar) {
+      const resultado = await eliminarCuenta();
+      if (resultado.exito) {
+        alert('Cuenta eliminada. Lamentamos verte partir.');
+        navigate('/');
+      } else {
+        alert('Por seguridad, necesitas cerrar sesión, volver a entrar e intentarlo de nuevo para eliminar tu cuenta.');
+      }
+    }
+  };
+
+  const manejarCerrarSesion = async () => {
+    const resultado = await cerrarSesionUsuario();
+    if (resultado.exito) {
+      console.log('Sesión cerrada');
+      navigate('/');
+    }
   };
 
   return (
     <div className="perfil-layout">
       
-      {/* Barra superior con botón de Cerrar Sesión */}
+      {/* Barra superior */}
       <header className="perfil-header">
         <div className="perfil-logo-group">
           <svg viewBox="0 0 24 24" fill="none" stroke="#0073cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="logo-icon">
@@ -42,10 +137,10 @@ function Perfil() {
       {/* Contenido principal */}
       <main className="perfil-content">
         
-        {/* Cabecera del Usuario (Minimalista) */}
+        {/* Cabecera del Usuario Dinámica */}
         <section className="usuario-identidad">
           <div className="avatar-contenedor">
-            <div className="avatar-circulo">M</div>
+            <div className="avatar-circulo">{nombre ? nombre.charAt(0).toUpperCase() : '?'}</div>
             <button className="btn-editar-avatar">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -53,8 +148,8 @@ function Perfil() {
               </svg>
             </button>
           </div>
-          <h1 className="usuario-nombre">Magdiel</h1>
-          <p className="usuario-email">magdiel@purecode.com</p>
+          <h1 className="usuario-nombre">{nombre || 'Usuario'}</h1>
+          <p className="usuario-email">{emailReal}</p>
         </section>
 
         {/* Formulario de Información Personal */}
@@ -70,6 +165,7 @@ function Perfil() {
                   type="text" 
                   value={nombre} 
                   onChange={(e) => setNombre(e.target.value)} 
+                  placeholder="Tu nombre completo o alias"
                 />
               </div>
               <button type="submit" className="btn-guardar-cambios">
@@ -94,26 +190,43 @@ function Perfil() {
                 placeholder="••••••••" 
                 value={passwordActual}
                 onChange={(e) => setPasswordActual(e.target.value)}
+                disabled={identidadVerificada}
               />
             </div>
             
-            <button type="button" className="btn-verificar">
-              Verificar Identidad
-            </button>
+            {!identidadVerificada && (
+              <button type="button" className="btn-verificar" onClick={verificarIdentidad}>
+                Verificar Identidad
+              </button>
+            )}
 
             <hr className="linea-separadora" />
 
-            {/* Campos bloqueados hasta verificar identidad (Simulación visual) */}
-            <div className="grupo-input-perfil bloqueado">
+            <div className={`grupo-input-perfil ${!identidadVerificada ? 'bloqueado' : ''}`}>
               <label>NUEVA CONTRASEÑA</label>
-              <input type="password" disabled />
+              <input 
+                type="password" 
+                disabled={!identidadVerificada}
+                value={nuevaPassword}
+                onChange={(e) => setNuevaPassword(e.target.value)}
+              />
             </div>
-            <div className="grupo-input-perfil bloqueado">
+            <div className={`grupo-input-perfil ${!identidadVerificada ? 'bloqueado' : ''}`}>
               <label>CONFIRMAR CONTRASEÑA</label>
-              <input type="password" disabled />
+              <input 
+                type="password" 
+                disabled={!identidadVerificada}
+                value={confirmarPassword}
+                onChange={(e) => setConfirmarPassword(e.target.value)}
+              />
             </div>
 
-            <button type="button" className="btn-actualizar-bloqueado" disabled>
+            <button 
+              type="button" 
+              className={identidadVerificada ? "btn-guardar-cambios" : "btn-actualizar-bloqueado"} 
+              disabled={!identidadVerificada}
+              onClick={manejarActualizarPassword}
+            >
               Actualizar Contraseña
             </button>
           </div>
@@ -126,7 +239,7 @@ function Perfil() {
               <h3>Zona de Riesgo</h3>
               <p>Eliminar permanentemente todos los registros y la cuenta.</p>
             </div>
-            <button type="button" className="btn-eliminar-cuenta">
+            <button type="button" className="btn-eliminar-cuenta" onClick={manejarEliminarCuenta}>
               Eliminar Cuenta
             </button>
           </div>
@@ -134,7 +247,7 @@ function Perfil() {
 
       </main>
 
-      {/* Barra de Navegación Inferior Unificada */}
+      {/* Barra de Navegación Inferior */}
       <nav className="bottom-nav">
         <button className="nav-item" onClick={() => navigate('/dashboard')}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -148,7 +261,6 @@ function Perfil() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
           <span>Registros</span>
         </button>
-        {/* Ítem Activo */}
         <button className="nav-item active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           <span>Perfil</span>
